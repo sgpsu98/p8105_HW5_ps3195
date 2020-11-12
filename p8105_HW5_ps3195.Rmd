@@ -7,6 +7,10 @@ output: github_document
 
 ```{r setup, include = FALSE}
 library(tidyverse)
+library(purrr)
+
+
+
 knitr::opts_chunk$set(
   fig.width = 6,
   fig.asp = .6,
@@ -113,3 +117,42 @@ homicide_df =
   filter(city_state != "Tulsa_AL") %>% 
   nest(data = resolved)
 ```
+
+
+## Problem 2
+
+
+read and tidy data
+
+```{r}
+p2_df = 
+  tibble(
+    name = list.files(path = "data")
+  ) %>% 
+  mutate(
+    path = str_c("data/", name),
+    data = map(path, read_csv),
+    name = str_remove(name, ".csv"),
+    
+  ) %>% 
+  select(-path) %>%
+  separate(name, into = c("arm", "subject_id")) %>%
+  mutate(subject_id = as.numeric(subject_id)) %>% 
+  unnest(data) %>% 
+  pivot_longer(
+    week_1:week_8,
+    names_to = "week",
+    values_to = "observations",
+    names_prefix = "week_"
+  )
+  
+```
+
+plot 
+
+```{r}
+#ggplot(p2_df, aes(x = week, y = observations, group = name, color = arm)) +
+  #geom_point() +
+  #geom_line()
+```
+
