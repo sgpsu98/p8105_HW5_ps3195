@@ -122,7 +122,7 @@ homicide_df =
 ## Problem 2
 
 
-read and tidy data
+#### read and tidy data
 
 ```{r}
 p2_df = 
@@ -137,7 +137,9 @@ p2_df =
   ) %>% 
   select(-path) %>%
   separate(name, into = c("arm", "subject_id")) %>%
-  mutate(subject_id = as.numeric(subject_id)) %>% 
+  mutate(
+    arm = recode(arm, "con" = "control", "exp" = "experiment")
+  ) %>% 
   unnest(data) %>% 
   pivot_longer(
     week_1:week_8,
@@ -145,14 +147,21 @@ p2_df =
     values_to = "observations",
     names_prefix = "week_"
   )
-  
+
+p2_df %>% 
+  knitr::kable()
 ```
 
-plot 
+#### spaghetti plot 
+
 
 ```{r}
-#ggplot(p2_df, aes(x = week, y = observations, group = name, color = arm)) +
-  #geom_point() +
-  #geom_line()
+sph_plot = 
+  p2_df %>% 
+  unite("subject", c(arm, subject_id), sep = " ", remove = F) %>%
+  ggplot(aes(x = week, y = observations, group = subject, color = subject)) +
+  geom_path(alpha = 0.7)
+
+sph_plot
 ```
 
