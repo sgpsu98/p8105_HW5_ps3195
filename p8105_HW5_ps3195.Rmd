@@ -164,6 +164,10 @@ sph_plot =
 sph_plot
 ```
 
+**Comment**
+
+
+
 
 ## Problem 3
 
@@ -202,9 +206,24 @@ sim_results = bind_rows(output_mu_0)
 
 ```
 
+
+#### datasets for mu = 1, 2, 3, 4, 5
+
 ```{r}
-#可以建一个function里面有上面的功能，并且附带画图
+
+results = 
+  tibble(
+    mu = c(1, 2, 3, 4, 5)
+  ) %>% 
+  mutate(
+    output_list = map(.x = mu, ~rerun(5000, sim_mean_p(mu = .x))),
+    estimate_df = map(output_list, bind_rows)
+  ) %>% 
+  select(-output_list) %>% 
+  unnest(estimate_df)
+
+
 ```
 
-
+##### Plot
 
