@@ -8,6 +8,8 @@ output: github_document
 ```{r setup, include = FALSE}
 library(tidyverse)
 library(purrr)
+library(ggridges)
+library(patchwork)
 
 set.seed(51)
 
@@ -272,6 +274,8 @@ plot3 =
   ) %>% 
   ggplot(aes(x = mu, y = average_rej_mu)) +
   geom_point() + geom_line()
+
+plot2 / plot3
 ```
 
 **Is the sample average of μ^ across tests for which the null is rejected approximately equal to the true value of μ? Why or why not?**
