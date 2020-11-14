@@ -132,8 +132,7 @@ p2_df =
   mutate(
     path = str_c("data/", name),
     data = map(path, read_csv),
-    name = str_remove(name, ".csv"),
-    
+    name = str_remove(name, ".csv")
   ) %>% 
   select(-path) %>%
   separate(name, into = c("arm", "subject_id")) %>%
@@ -203,6 +202,9 @@ sim_results = bind_rows(output_mu_0)
 
 ```
 
+```{r}
+#可以建一个function里面有上面的功能，并且附带画图
+```
 
 
 
