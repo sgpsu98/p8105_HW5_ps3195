@@ -232,7 +232,7 @@ results =
 ##### Plot
 
 
-**Make a plot showing the proportion of times the null was rejected (the power of the test) on the y axis and the true value of μ on the x axis.** 
+*Make a plot showing the proportion of times the null was rejected (the power of the test) on the y axis and the true value of μ on the x axis.* 
 
 
 ```{r}
@@ -245,15 +245,21 @@ plot1 =
   ) %>% 
   mutate(proportion_rej = rej / 5000) %>% 
   ggplot(aes(x = mu, y = proportion_rej)) +
-  geom_path()  
-  
+  geom_path() +
+  labs(
+    title = "Power of the test",
+    x = "True mu",
+    y = "Power"
+  )
+
+plot1 
 ```
 
-**Describe the association between effect size and power.**
+*Describe the association between effect size and power.*
 
 ...
 
-**Make a plot showing the average estimate of μ^ on the y axis and the true value of μ on the x axis. Make a second plot (or overlay on the first) the average estimate of μ^ only in samples for which the null was rejected on the y axis and the true value of μ on the x axis.**
+*Make a plot showing the average estimate of μ^ on the y axis and the true value of μ on the x axis. Make a second plot (or overlay on the first) the average estimate of μ^ only in samples for which the null was rejected on the y axis and the true value of μ on the x axis.*
 
 ```{r}
 plot2 =
@@ -263,7 +269,12 @@ plot2 =
     average_mu_hat = mean(mu_hat)
   ) %>% 
   ggplot(aes(x = mu, y = average_mu_hat)) +
-  geom_point() + geom_line()
+  geom_point() + geom_line() +
+  labs(
+    title = "Average estimate of mu_hat vs. True mu ",
+    x = "True mu",
+    y = "Average estimate of mu_hat"
+  )
 
 plot3 = 
   results %>% 
@@ -273,11 +284,16 @@ plot3 =
     average_rej_mu = mean(mu_hat)
   ) %>% 
   ggplot(aes(x = mu, y = average_rej_mu)) +
-  geom_point() + geom_line()
+  geom_point() + geom_line() +
+  labs(
+    title = "Average estimate of mu_hat (rejected) vs. True mu",
+    x = "True mu",
+    y = "Average esitmate of mu_hat (rejected)"
+  )
 
 plot2 / plot3
 ```
 
-**Is the sample average of μ^ across tests for which the null is rejected approximately equal to the true value of μ? Why or why not?**
+*Is the sample average of μ^ across tests for which the null is rejected approximately equal to the true value of μ? Why or why not?*
 
 ...
