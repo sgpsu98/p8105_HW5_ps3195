@@ -161,7 +161,7 @@ p2_df %>%
 sph_plot = 
   p2_df %>% 
   unite("subject", c(arm, subject_id), sep = " ", remove = F) %>%
-  ggplot(aes(x = week, y = observations, group = subject, color = subject)) +
+  ggplot(aes(x = week, y = observations, group = subject, color = arm)) +
   geom_path(alpha = 0.7)
 
 sph_plot
@@ -273,7 +273,7 @@ plot2 =
   labs(
     title = "Average estimate of mu_hat vs. True mu ",
     x = "True mu",
-    y = "Average estimate of mu_hat"
+    y = "Average estimate μ hat"
   )
 
 plot3 = 
@@ -288,7 +288,7 @@ plot3 =
   labs(
     title = "Average estimate of mu_hat (rejected) vs. True mu",
     x = "True mu",
-    y = "Average esitmate of mu_hat (rejected)"
+    y = "Average esitmate μ (rejected)"
   )
 
 plot2 / plot3
