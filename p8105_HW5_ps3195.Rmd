@@ -211,13 +211,13 @@ sim_results = bind_rows(output_mu_0)
 ```
 
 
-#### datasets for mu = 1, 2, 3, 4, 5
+#### datasets for mu = 0, 1, 2, 3, 4, 5, 6
 
 ```{r}
 
 results = 
   tibble(
-    mu = c(1, 2, 3, 4, 5)
+    mu = c(0, 1, 2, 3, 4, 5, 6)
   ) %>% 
   mutate(
     output_list = map(.x = mu, ~rerun(5000, sim_mean_p(mu = .x))),
