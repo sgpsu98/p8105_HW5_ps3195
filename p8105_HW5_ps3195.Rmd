@@ -157,7 +157,7 @@ p2_df %>%
 
 
 
-```{r}
+```{r sph_plot}
 sph_plot = 
   p2_df %>% 
   unite("subject", c(arm, subject_id), sep = " ", remove = F) %>%
@@ -178,7 +178,7 @@ Over the 8 weeks, the observations of experimental arms are approximately shown 
 
 #### set function
 
-```{r}
+```{r sim_function}
 sim_mean_p = function(n = 30, mu, sigma = 5) {
   
   sim_data = tibble(
@@ -199,7 +199,7 @@ sim_mean_p = function(n = 30, mu, sigma = 5) {
 
 $x\sim N(\mu,\sigma)$
 
-```{r}
+```{r mu0}
 output_mu_0 = vector("list", 5000)
 
 for (i in 1:5000) {
@@ -213,7 +213,7 @@ sim_results = bind_rows(output_mu_0)
 
 #### datasets for mu = 0, 1, 2, 3, 4, 5, 6
 
-```{r}
+```{r total results}
 
 results = 
   tibble(
@@ -235,7 +235,7 @@ results =
 *Make a plot showing the proportion of times the null was rejected (the power of the test) on the y axis and the true value of μ on the x axis.* 
 
 
-```{r}
+```{r plot1}
 plot1 = 
   results %>% 
   group_by(mu) %>% 
@@ -257,11 +257,13 @@ plot1
 
 *Describe the association between effect size and power.*
 
+We can see that,  the power gets increased when the effect size increases, and the power reaches 1 when mu equals 5 and 6.
+
 ...
 
 *Make a plot showing the average estimate of μ^ on the y axis and the true value of μ on the x axis. Make a second plot (or overlay on the first) the average estimate of μ^ only in samples for which the null was rejected on the y axis and the true value of μ on the x axis.*
 
-```{r}
+```{r plot2_plot3}
 plot2 =
   results %>% 
   group_by(mu) %>% 
@@ -295,5 +297,13 @@ plot2 / plot3
 ```
 
 *Is the sample average of μ^ across tests for which the null is rejected approximately equal to the true value of μ? Why or why not?*
+
+Average estimate of μ^ is equal to the true value of μ. When μ equals to 3, 4, 5, and 6, the sample average of μ^ across tests for which the null is rejected approximately is equal to the true value of μ. 
+
+
+* When μ is close to 0, the proportion of null rejection is less than the samples whose μ is far away from 0. The μ^ for the samples whose μ is close to 0 could exist the situations that μ^ is not equal to 0, even far away from 0.
+
+* When μ is far away from 0, the null could be rejected for all samples and hence the average of μ^ rejected could be equal to the average of the true μ and the total average μ^.
+
 
 ...
